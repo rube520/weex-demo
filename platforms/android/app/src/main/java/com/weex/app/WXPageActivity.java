@@ -58,55 +58,55 @@ public class WXPageActivity extends AbsWeexActivity implements
     Uri uri = intent.getData();
     String from = intent.getStringExtra("from");
     mFromSplash = "splash".equals(from);
+//    if (uri == null) {
+//      uri = Uri.parse("{}");
+//    }
+//    if (uri != null) {
+//      try {
+//        JSONObject initData = new JSONObject(uri.toString());
+//        String bundleUrl = initData.optString("WeexBundle", null);
+//        if (bundleUrl != null) {
+//          mUri = Uri.parse(bundleUrl);
+//        }
+//        String ws = initData.optString("Ws", null);
+//        if (!TextUtils.isEmpty(ws)) {
+//          uri = null;
+//          mHotReloadManager = new HotReloadManager(ws, new HotReloadManager.ActionListener() {
+//            @Override
+//            public void reload() {
+//              runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                  Toast.makeText(WXPageActivity.this, "Hot reload", Toast.LENGTH_SHORT).show();
+//                  createWeexInstance();
+//                  renderPage();
+//                }
+//              });
+//            }
+//
+//            @Override
+//            public void render(final String bundleUrl) {
+//              runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                  Toast.makeText(WXPageActivity.this, "Render: " + bundleUrl, Toast.LENGTH_SHORT).show();
+//                  createWeexInstance();
+//                  loadUrl(bundleUrl);
+//                }
+//              });
+//            }
+//          });
+//        } else {
+//          WXLogUtils.w("Weex", "can not get hot reload config");
+//        }
+//      } catch (JSONException e) {
+//      }
+//    }
 
-    if (uri == null) {
-      uri = Uri.parse("{}");
-    }
-    if (uri != null) {
-      try {
-        JSONObject initData = new JSONObject(uri.toString());
-        String bundleUrl = initData.optString("WeexBundle", null);
-        if (bundleUrl != null) {
-          mUri = Uri.parse(bundleUrl);
-        }
-
-        String ws = initData.optString("Ws", null);
-        if (!TextUtils.isEmpty(ws)) {
-          mHotReloadManager = new HotReloadManager(ws, new HotReloadManager.ActionListener() {
-            @Override
-            public void reload() {
-              runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                  Toast.makeText(WXPageActivity.this, "Hot reload", Toast.LENGTH_SHORT).show();
-                  createWeexInstance();
-                  renderPage();
-                }
-              });
-            }
-
-            @Override
-            public void render(final String bundleUrl) {
-              runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                  Toast.makeText(WXPageActivity.this, "Render: " + bundleUrl, Toast.LENGTH_SHORT).show();
-                  createWeexInstance();
-                  loadUrl(bundleUrl);
-                }
-              });
-            }
-          });
-        } else {
-          WXLogUtils.w("Weex", "can not get hot reload config");
-        }
-      } catch (JSONException e) {
-        e.printStackTrace();
-      }
-    }
-
-    if (mUri == null) {
+    if (mFromSplash) {
       mUri = Uri.parse(AppConfig.getLaunchUrl());
+    } else {
+      mUri = uri;
     }
 
     if (!WXSoInstallMgrSdk.isCPUSupport()) {
