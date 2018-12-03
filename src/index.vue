@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <image :src="logo" class="logo" />
+    <image :src="logo" class="logo" @click="navigateToNextPage"/>
     <text class="greeting">The environment is ready!</text>
     <HelloWorld/>
   </div>
@@ -8,16 +8,22 @@
 
 <script>
 import HelloWorld from './components/HelloWorld'
+import navigateTo from "./tools/router";
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  },
-  data () {
-    return {
-      logo: 'https://gw.alicdn.com/tfs/TB1yopEdgoQMeJjy1XaXXcSsFXa-640-302.png'
+    name: 'App',
+    components: {
+      HelloWorld
+    },
+    data () {
+      return {
+        logo: 'https://gw.alicdn.com/tfs/TB1yopEdgoQMeJjy1XaXXcSsFXa-640-302.png'
+      }
+    },
+    methods: {
+      navigateToNextPage: function () {
+          navigateTo("goods-list");
+      }
     }
-  }
 }
 </script>
 

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-    let navigator = weex.requireModule('navigator');
+    import navigateTo from "../tools/router";
     export default {
         name: 'goods-list',
         data: {
@@ -13,10 +13,7 @@
         },
         methods: {
             gotoNextPage: function () {
-                navigator.push({
-                    url:"file://assets/dist/modules/goods-detail.js",
-                    animated:"true"
-                })
+                navigateTo("goods-detail");
             }
         }
     }
